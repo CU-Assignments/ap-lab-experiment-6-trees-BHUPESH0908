@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root == nullptr) return true;
+        if(root->left == nullptr && root -> right == nullptr) return true;  
+        long long imin = -1e12, imax = 1e12;
+        return isValid(root, imin, imax);
+    }
+    bool isValid(TreeNode* root, long long imin, long long imax){
+        if(root == nullptr) return true;
+        if(root -> val < imax && root -> val > imin){
+            bool left = isValid(root -> left, imin, root -> val);
+            bool right = isValid(root -> right, root -> val, imax);
+            return left && right;
+        }
+        else return false;
+    }
+};
